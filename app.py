@@ -19,7 +19,8 @@ def idToint(x):
 class FraudAlert(object):
 
     def __init__(self, debug):
-        
+       
+        self.runs = 0
         self.debug = debug
         self.oldPurchases = []
         self.accounts = []
@@ -51,6 +52,11 @@ class FraudAlert(object):
                 print("going to check for purchases")
             
             self.classifyPurchases()
+            
+            self.runs += 1;
+
+            if (self.runs % 540 == 0):
+                # Refit data
 
             time.sleep(20)
 
