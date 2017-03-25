@@ -131,6 +131,11 @@ class FraudAlert(object):
 
         if len(frauds) > 0:
             self.notifyUser(frauds)
+        if self.debug:
+            print("Fraudulent charges:")
+            for f in frauds:
+                print(f)
+            print("Done")
 
         # write out checked purchases
         with open('purchases.pkl', 'wb') as handle:
