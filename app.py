@@ -9,6 +9,7 @@ import datetime
 import hashlib
 import time
 import random
+from twilio.rest import ClientToken
 from NessiWrapper import Nessi
 
 def idToint(x):
@@ -24,11 +25,19 @@ class FraudAlert(object):
         self.debug = debug
         self.oldPurchases = []
         self.accounts = []
+
         # Load config
         with open('secret.json') as json_data:
             config = json.load(json_data)
             self.apiKey = config['nessi_key']
             self.customerId = config['customer_id']
+            self.twilioSid = config['twilio']['sid']
+            self.twilioToken = config['twilio']['token']
+            self.twilioNumber = config['twilio']['number']
+            self.number = config['number']
+
+        # load twilio
+        self.twilio = Client(self.twilioSid, self.twilioToken)
 
         # setup Nessi
         self.nessi = Nessi('customer', self.apiKey)
@@ -44,8 +53,6 @@ class FraudAlert(object):
             self.accounts.append(acc['_id'])
     
     def run(self):
-        self.setupMockAcc()
-        return
         while(True):
             
             if (self.debug):
@@ -60,7 +67,8 @@ class FraudAlert(object):
 
             time.sleep(20)
 
-
+    def send_message(self, body):
+        self.twilio.messages.create(body=body, to=self.number)
 
     def getNewPurchases(self):
         newPurchases = []
