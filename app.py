@@ -104,8 +104,7 @@ class FraudAlert(object):
         for acc in self.accounts:
             purchases += self.nessi.getPurchasesByAccount(acc)
         inputs = getInputsFromPurchases(purchases)
-
-        #refit
+        self.svm.refit(inputs)
 
     def classifyPurchases(self):
 
@@ -120,7 +119,7 @@ class FraudAlert(object):
             print(inputs)
 
         # Classify
-        results = self.classify_new(inputs)
+        results = self.svm.classify_new(inputs)
         frauds = []
         for i, res in enumerate(results):
             if res == -1:
