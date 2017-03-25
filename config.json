@@ -1,4 +1,10 @@
 {
     "nessi_key" : "mock",
-    "customer_id" : "mock"
+    "customer_id" : "mock",
+    "twilio" : {
+        "sid" : "mock",
+        "token" : "mock",
+        "number" : "mock"
+    },
+    "number" : "mock"
 }
