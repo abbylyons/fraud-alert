@@ -56,7 +56,7 @@ class FraudAlert(object):
             self.runs += 1;
 
             if (self.runs % 540 == 0):
-                # Refit data
+                self.refit() 
 
             time.sleep(20)
 
@@ -91,6 +91,14 @@ class FraudAlert(object):
             inputs.append(inp)
 
         return inputs
+
+    def refit(self):
+        purchases = []
+        for acc in self.accounts:
+            purchases += self.nessi.getPurchasesByAccount(acc)
+        inputs = getInputsFromPurchases(purchases)
+
+        #refit
 
     def classifyPurchases(self):
 
