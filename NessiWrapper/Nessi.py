@@ -64,11 +64,14 @@ class Nessi(object):
             print(resp.content)
             return None
         return json.loads(resp.content)
-    
 
+
+    ############
+    # CUSTOMER #
+    ############
 
     # ACCOUNTS
-    
+
     def getAllAccounts(self, accType = ''):
         if accType == '':
             url = self.__generateEndpointUrl__('accounts', [], [])
@@ -154,7 +157,7 @@ class Nessi(object):
 
     def getCustomerByAccount(self, accId):
         url = self.__generateEndpointUrl__('customer', [('accounts', accId)], [])
-        return self.__sendGetRequest__(url) 
+        return self.__sendGetRequest__(url)
 
     def getCustomers(self):
         url = self.__generateEndpointUrl__('customers', [], [])
@@ -171,7 +174,7 @@ class Nessi(object):
     def updateCustomer(self, customerId, customer):
         url = self.__generateEndpointUrl__('', [('customers', customerId)], [])
         return self.__sendPutRequest__(url, customer)
-    
+
     # Deposit
 
     def getDepositsByAccount(self, accId):
@@ -237,7 +240,7 @@ class Nessi(object):
 
 
     # Purchase
-    
+
     def getPurchasesByAccount(self, accId):
         url = self.__generateEndpointUrl__('purchases', [('accounts', accId)], [])
         return self.__sendGetRequest__(url)
@@ -265,7 +268,7 @@ class Nessi(object):
     def deletePurchase(self, purchaseId):
         url = self.__generateEndpointUrl__('', [('purchases', purchaseId)], [])
         return self.__sendDeleteRequest__(url)
- 
+
 
     # Transfer
 
@@ -312,3 +315,120 @@ class Nessi(object):
         url = self.__generateEndpointUrl__('', [('withdrawals', withdrawalId)], [])
         return self.__sendDeleteRequest__(url)
 
+
+    ##############
+    # Enterprise #
+    ##############
+
+    # Account
+
+    def enterpriseGetAccounts(self):
+        if not self.enterprise:
+            print('tried to access enterprise URL not in enterprise mode')
+            return None
+        url = self.__generateEndpointUrl__('/enterprise/accounts', [], [])
+        return self.__sendGetRequest__(url)
+
+    def enterpriseGetAccount(self, accId):
+        if not self.enterprise:
+            print('tried to access enterprise URL not in enterprise mode')
+            return None
+        url = self.__generateEndpointUrl__('', [('/enterprise/accounts', accId)], [])
+        return self.__sendGetRequest__(url)
+
+
+    # Bill
+
+    def enterpriseGetBills(self):
+        if not self.enterprise:
+            print('tried to access enterprise URL not in enterprise mode')
+            return None
+        url = self.__generateEndpointUrl__('/enterprise/bills', [], [])
+        return self.__sendGetRequest__(url)
+
+    def enterpriseGetBill(self, billId):
+        if not self.enterprise:
+            print('tried to access enterprise URL not in enterprise mode')
+            return None
+        url = self.__generateEndpointUrl__('', [('/enterprise/bills', billId)], [])
+        return self.__sendGetRequest__(url)
+
+    # Customer
+
+    def enterpriseGetCustomers(self):
+        if not self.enterprise:
+            print('tried to access enterprise URL not in enterprise mode')
+            return None
+        url = self.__generateEndpointUrl__('/enterprise/customers', [], [])
+        return self.__sendGetRequest__(url)
+
+    def enterpriseGetCustomer(self, customerId):
+        if not self.enterprise:
+            print('tried to access enterprise URL not in enterprise mode')
+            return None
+        url = self.__generateEndpointUrl__('', [('/enterprise/customers', customerId)], [])
+        return self.__sendGetRequest__(url)
+
+    # Deposit
+
+    def enterpriseGetDeposits(self):
+        if not self.enterprise:
+            print('tried to access enterprise URL not in enterprise mode')
+            return None
+        url = self.__generateEndpointUrl__('/enterprise/deposits', [], [])
+        return self.__sendGetRequest__(url)
+
+    def enterpriseGetDeposit(self, depositId):
+        if not self.enterprise:
+            print('tried to access enterprise URL not in enterprise mode')
+            return None
+        url = self.__generateEndpointUrl__('', [('/enterprise/deposits', depositId)], [])
+        return self.__sendGetRequest__(url)
+
+    # Merchant
+
+    def enterpriseGetMerchants(self):
+        if not self.enterprise:
+            print('tried to access enterprise URL not in enterprise mode')
+            return None
+        url = self.__generateEndpointUrl__('/enterprise/merchants', [], [])
+        return self.__sendGetRequest__(url)
+
+    def enterpriseGetMerchant(self, merchantId):
+        if not self.enterprise:
+            print('tried to access enterprise URL not in enterprise mode')
+            return None
+        url = self.__generateEndpointUrl__('', [('/enterprise/merchants', merchantId)], [])
+        return self.__sendGetRequest__(url)
+
+    # Transfer
+
+    def enterpriseGetTransfers(self):
+        if not self.enterprise:
+            print('tried to access enterprise URL not in enterprise mode')
+            return None
+        url = self.__generateEndpointUrl__('/enterprise/transfers', [], [])
+        return self.__sendGetRequest__(url)
+
+    def enterpriseGetTransfer(self, transferId):
+        if not self.enterprise:
+            print('tried to access enterprise URL not in enterprise mode')
+            return None
+        url = self.__generateEndpointUrl__('', [('/enterprise/transfers', transferId)], [])
+        return self.__sendGetRequest__(url)
+
+    # Withdrawal
+
+    def enterpriseGetWithdrawals(self):
+        if not self.enterprise:
+            print('tried to access enterprise URL not in enterprise mode')
+            return None
+        url = self.__generateEndpointUrl__('/enterprise/withdrawals', [], [])
+        return self.__sendGetRequest__(url)
+
+    def enterpriseGetWithdrawal(self, withdrawalId):
+        if not self.enterprise:
+            print('tried to access enterprise URL not in enterprise mode')
+            return None
+        url = self.__generateEndpointUrl__('', [('/enterprise/withdrawals', withdrawalId)], [])
+        return self.__sendGetRequest__(url)
