@@ -10,6 +10,7 @@ import hashlib
 import time
 import random
 from NessiWrapper import Nessi
+import Svm
 
 def idToint(x):
     hash_object = hashlib.md5(x)
@@ -24,6 +25,7 @@ class FraudAlert(object):
         self.debug = debug
         self.oldPurchases = []
         self.accounts = []
+        self.svm = Svm('svm.pkl')
         # Load config
         with open('secret.json') as json_data:
             config = json.load(json_data)
@@ -105,6 +107,11 @@ class FraudAlert(object):
             print(inputs)
 
         # Classify
+        results = self.classify_new(inputs)
+        frauds = []
+        for i, res in enumerate(results):
+            if res == -1:
+                frauds.append(purchases[i])
 
         # write out checked purchases
         with open('purchases.pkl', 'wb') as handle:
