@@ -31,18 +31,40 @@ class Nessi(object):
                 retString = '{}?{}={}'.format(retString, param[0], param[1])
             else:
                 retString = '{}&{}={}'.format(retString, param[0], param[1])
+        return retString
 
     def __sendGetRequest__(self, url):
-        return requests.get(url)
+        resp = requests.get(url)
+        if not resp.ok:
+            print('nessi failed with code {}'.format(resp.status_code))
+            print(resp.content)
+            return None
+        return json.loads(resp.content)
 
     def __sendDeleteRequest__(self, url):
-        return requests.delete(url)
+        resp = requests.delete(url)
+        if not resp.ok:
+            print('nessi failed with code {}'.format(resp.status_code))
+            print(resp.content)
+            return None
+        return json.loads(resp.content)
 
     def __sendPostRequest__(self, url, payload):
-        return requests.post(url, data=json.dumps(payload), headers={'content-type':'application/json'})
+        resp = requests.post(url, data=json.dumps(payload), headers={'content-type':'application/json'})
+        if not resp.ok:
+            print('nessi failed with code {}'.format(resp.status_code))
+            print(resp.content)
+            return None
+        return json.loads(resp.content)
 
     def __sendPutRequest__(self, url, payload):
-        return requests.put(url, data=json.dumps(payload), headers={'content-type':'application/json'})
+        resp = requests.put(url, data=json.dumps(payload), headers={'content-type':'application/json'})
+        if not resp.ok:
+            print('nessi failed with code {}'.format(resp.status_code))
+            print(resp.content)
+            return None
+        return json.loads(resp.content)
+    
 
 
     # ACCOUNTS
