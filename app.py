@@ -42,7 +42,6 @@ class FraudAlert(object):
             self.accounts.append(acc['_id'])
     
     def run(self):
-        self.setupMockAcc()
         while(True):
             
             if (self.debug):
@@ -57,7 +56,7 @@ class FraudAlert(object):
     def getNewPurchases(self):
         newPurchases = []
         for acc in self.accounts:
-            resp = self.nessi.getPurchaesByAccount(acc)
+            resp = self.nessi.getPurchasesByAccount(acc)
             for purchase in resp:
                 if not purchase['_id'] in self.oldPurchases:
                     self.oldPurchases.append(purchase['_id'])
@@ -91,7 +90,7 @@ class FraudAlert(object):
             print("found these purchases")
             print(purchases)
 
-        inputs = getInputsFromPurchases(purchases)
+        inputs = self.getInputsFromPurchases(purchases)
         if (self.debug):
             print("got these inputs")
             print(inputs)
@@ -101,7 +100,7 @@ class FraudAlert(object):
         # write out checked purchases
         with open('purchases.pkl', 'wb') as handle:
             pickle.dump(self.oldPurchases, handle)
-
+    
     def setupMockAcc(self):
     	# put api calls here
     	# monthly bill (same day of month, amount varies)
@@ -378,7 +377,7 @@ class FraudAlert(object):
 def main():
     debug = False
     if (len(sys.argv) > 1):
-        if (sys.argv[2] == '-d':
+        if (sys.argv[1] == '-d'):
             debug = True
         else:
             print("Usage: ./app.py [-d]\n\t-d DebugMode")
