@@ -53,6 +53,10 @@ class FraudAlert(object):
         resp = self.nessi.getAccountsByCustomerId(self.customerId)
         for acc in resp:
             self.accounts.append(acc['_id'])
+
+
+        # refit
+        self.refit()
     
     def run(self):
         while(True):
