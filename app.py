@@ -9,9 +9,9 @@ import datetime
 import hashlib
 import time
 import random
-from twilio.rest import ClientToken
+from twilio.rest import TwilioRestClient
 from NessiWrapper import Nessi
-import Svm
+from ml import Svm
 
 def idToint(x):
     hash_object = hashlib.md5(x)
@@ -39,7 +39,7 @@ class FraudAlert(object):
             self.number = config['number']
 
         # load twilio
-        self.twilio = Client(self.twilioSid, self.twilioToken)
+        self.twilio = TwilioRestClient(self.twilioSid, self.twilioToken)
 
         # setup Nessi
         self.nessi = Nessi('customer', self.apiKey)
@@ -146,7 +146,7 @@ class FraudAlert(object):
 
     def notifyUser(self, frauds):
         body = 'We have detected suspicious purchases on your account.\n\n'
-        int i = 1
+        i = 1
         for fraud in frauds:
            merchant = self.nessi.getMerchant(fraud['merchant_id'])
            body = "{}{}:\n\t{}Merchant name: {}\n\tDate: {}\n\tDescription: {}\n\tAmount: {}\n\tAt: {}, {}\n\n".format(body, i, merchant['name'], fraud['purchase_date'], fraud['description'], fraud['amount'], merchant['address']['city'], merchant['address']['state'])
