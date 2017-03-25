@@ -15,8 +15,8 @@ class Svm(object):
     	self.clf.fit(charges)
     	joblib.dump(clf, self.file)
 
-	def classify_new(self, new_charge):
+	def classify_new(self, new_charges):
 		if self.clf == None:
 			print "Tried to classify with no model"
 		else:
-			return self.clf.predict([new_charge])
+			return self.clf.predict(new_charges)

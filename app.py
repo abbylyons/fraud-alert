@@ -11,6 +11,7 @@ import time
 import random
 from twilio.rest import ClientToken
 from NessiWrapper import Nessi
+import Svm
 
 def idToint(x):
     hash_object = hashlib.md5(x)
@@ -25,6 +26,7 @@ class FraudAlert(object):
         self.debug = debug
         self.oldPurchases = []
         self.accounts = []
+        self.svm = Svm('svm.pkl')
 
         # Load config
         with open('secret.json') as json_data:
@@ -66,9 +68,6 @@ class FraudAlert(object):
                 self.refit() 
 
             time.sleep(20)
-
-    def send_message(self, body):
-        self.twilio.messages.create(body=body, to=self.number)
 
     def getNewPurchases(self):
         newPurchases = []
@@ -121,10 +120,30 @@ class FraudAlert(object):
             print(inputs)
 
         # Classify
+        results = self.classify_new(inputs)
+        frauds = []
+        for i, res in enumerate(results):
+            if res == -1:
+                frauds.append(purchases[i])
+
+        if len(frauds) > 0:
+            self.notifyUser(frauds)
 
         # write out checked purchases
         with open('purchases.pkl', 'wb') as handle:
             pickle.dump(self.oldPurchases, handle)
+
+    def send_message(self, body):
+        self.twilio.messages.create(body=body, to=self.number)
+
+    def notifyUser(self, frauds):
+        body = 'We have detected suspicious purchases on your account.\n\n'
+        int i = 1
+        for fraud in frauds:
+           merchant = self.nessi.getMerchant(fraud['merchant_id'])
+           body = "{}{}:\n\t{}Merchant name: {}\n\tDate: {}\n\tDescription: {}\n\tAmount: {}\n\tAt: {}, {}\n\n".format(body, i, merchant['name'], fraud['purchase_date'], fraud['description'], fraud['amount'], merchant['address']['city'], merchant['address']['state'])
+
+        self.send_message(body)
     
         
 def main():
