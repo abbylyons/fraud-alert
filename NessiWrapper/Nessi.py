@@ -36,7 +36,7 @@ class Nessi(object):
     def __sendGetRequest__(self, url):
         resp = requests.get(url)
         if not resp.ok:
-            print('nessi failed with code {}'.format(resp.status_code))
+            print('nessi get request failed with code {}\n\turl: {}'.format(resp.status_code, url))
             print(resp.content)
             return None
         return json.loads(resp.content)
@@ -44,7 +44,7 @@ class Nessi(object):
     def __sendDeleteRequest__(self, url):
         resp = requests.delete(url)
         if not resp.ok:
-            print('nessi failed with code {}'.format(resp.status_code))
+            print('nessi delete request failed with code {}\n\turl: {}'.format(resp.status_code, url))
             print(resp.content)
             return None
         return json.loads(resp.content)
@@ -52,7 +52,7 @@ class Nessi(object):
     def __sendPostRequest__(self, url, payload):
         resp = requests.post(url, data=json.dumps(payload), headers={'content-type':'application/json'})
         if not resp.ok:
-            print('nessi failed with code {}'.format(resp.status_code))
+            print('nessi post request failed with code {}\n\turl: {}'.format(resp.status_code, url))
             print(resp.content)
             return None
         return json.loads(resp.content)
@@ -60,7 +60,7 @@ class Nessi(object):
     def __sendPutRequest__(self, url, payload):
         resp = requests.put(url, data=json.dumps(payload), headers={'content-type':'application/json'})
         if not resp.ok:
-            print('nessi failed with code {}'.format(resp.status_code))
+            print('nessi put request failed with code {}\n\turl: {}'.format(resp.status_code, url))
             print(resp.content)
             return None
         return json.loads(resp.content)
@@ -150,7 +150,7 @@ class Nessi(object):
         return self.__sendGetRequest__(url)
 
     def getBranch(self, branchId):
-        url = self.__generateEndpointUrl__('', ['branches', branchId], [])
+        url = self.__generateEndpointUrl__('', [('branches', branchId)], [])
         return self.__sendGetRequest__(url)
 
     # Customer
@@ -182,7 +182,7 @@ class Nessi(object):
         return self.__sendGetRequest__(url)
 
     def getDeposit(self, depositId):
-        url = self.__generateEndpointUrl__('', ['deposits', depositId], [])
+        url = self.__generateEndpointUrl__('', [('deposits', depositId)], [])
         return self.__sendGetRequest__(url)
 
     def createDeposit(self, accId, deposit):
@@ -204,7 +204,7 @@ class Nessi(object):
         return self.__sendGetRequest__(url)
 
     def getLoan(self, loanId):
-        url = self.__generateEndpointUrl__('', ['loans', loanId], [])
+        url = self.__generateEndpointUrl__('', [('loans', loanId)], [])
         return self.__sendGetRequest__(url)
 
     def createLoan(self, accId, loan):
@@ -227,7 +227,7 @@ class Nessi(object):
         return self.__sendGetRequest__(url)
 
     def getMerchant(self, merchantId):
-        url = self.__generateEndpointUrl__('', ['merchants', merchantId], [])
+        url = self.__generateEndpointUrl__('', [('merchants', merchantId)], [])
         return self.__sendGetRequest__(url)
 
     def createMerchant(self, merchant):
@@ -254,7 +254,7 @@ class Nessi(object):
         return self.__sendGetRequest__(url)
 
     def getPurchase(self, purchaseId):
-        url = self.__generateEndpointUrl__('', ['purchases', purchaseId], [])
+        url = self.__generateEndpointUrl__('', [('purchases', purchaseId)], [])
         return self.__sendGetRequest__(url)
 
     def createPurchase(self, accId, purchase):
@@ -300,7 +300,7 @@ class Nessi(object):
         return self.__sendGetRequest__(url)
 
     def getWithdrawal(self, withdrawalId):
-        url = self.__generateEndpointUrl__('', ['withdrawals', withdrawalId], [])
+        url = self.__generateEndpointUrl__('', [('withdrawals', withdrawalId)], [])
         return self.__sendGetRequest__(url)
 
     def createWithdrawal(self, accId, withdrawal):

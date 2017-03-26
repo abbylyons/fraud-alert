@@ -2,6 +2,7 @@
 
 from NessiWrapper import Nessi
 import json
+import random
 
 # setup Nessi
 with open('secret.json') as json_data:
