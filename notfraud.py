@@ -16,15 +16,15 @@ for acc in resp:
     accounts.append(acc['_id'])
 
 # make good charge
-clothing = {
+groceries = {
     "merchant_id": "58d724ea1756fc834d906d9b",
     "medium": "balance",
     "purchase_date": "2016-05-10",
-    "amount": round(random.uniform(20.0, 100.0), 2),
-    "description": "clothing"
+    "amount": round(random.uniform(10.0, 40.0), 2),
+    "description": "food"
 }
 
 # send good charge
-response = nessi.createPurchase(accounts[0], clothing)
+response = nessi.createPurchase(accounts[0], groceries)
 if response["code"] != 201:
     print "good purchase failed"
