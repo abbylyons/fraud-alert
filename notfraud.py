@@ -17,7 +17,7 @@ for acc in resp:
 
 # make good charge
 groceries = {
-    "merchant_id": "58d724ea1756fc834d906d9b",
+    "merchant_id": "58d728b01756fc834d906dfe",
     "medium": "balance",
     "purchase_date": "2016-05-10",
     "amount": round(random.uniform(10.0, 40.0), 2),

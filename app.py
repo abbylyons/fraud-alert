@@ -102,14 +102,17 @@ class FraudAlert(object):
             else:
                 dateParts = dateParts[0]
             date = datetime.date(int(dateParts[0]), int(dateParts[1]), int(dateParts[2]))
+            amount = float(purc['amount']) / 1000
+            if amount > 1:
+                amount = 1
             inp = [
-                int(merchant['geocode']['lat']),
-                int(merchant['geocode']['lng']),
+                (float(merchant['geocode']['lat']) + 90)/180,
+                (float(merchant['geocode']['lng'] + 180)/360),
                 #idToint(purc['merchant_id']),
                 #date.weekday(),
                 #int(dateParts[1]) - 1,
                 #int(dateParts[0]),
-                float(purc['amount'])
+                amount
             ]
             if self.debug:
                 print('got input:\n{}'.format(inp))
