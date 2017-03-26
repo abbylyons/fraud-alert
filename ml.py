@@ -1,7 +1,7 @@
 import numpy as np
 import os
-from sklearn import svm
 from sklearn.externals import joblib
+from sklearn.neighbors import NearestNeighbors
 
 class Svm(object):
     def __init__(self, filename):
@@ -12,7 +12,7 @@ class Svm(object):
             self.clf = None
 
     def refit(self, charges):
-        self.clf = svm.OneClassSVM(nu=0.1, kernel="rbf", gamma=0.1)
+        self.clf = NearestNeighbors(n_neighbors=1)
         self.clf.fit(charges)
         joblib.dump(self.clf, self.file)
 
@@ -20,4 +20,4 @@ class Svm(object):
         if self.clf == None:
             print "Tried to classify with no model"
         else:
-            return self.clf.predict(new_charges)
+            return self.clf.kneighbors(new_charges)[0]
