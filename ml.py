@@ -1,4 +1,5 @@
 import numpy as np
+import os
 from sklearn import svm
 from sklearn.externals import joblib
 
@@ -13,7 +14,7 @@ class Svm(object):
     def refit(self, charges):
         self.clf = svm.OneClassSVM(nu=0.1, kernel="rbf", gamma=0.1)
         self.clf.fit(charges)
-        joblib.dump(clf, self.file)
+        joblib.dump(self.clf, self.file)
 
     def classify_new(self, new_charges):
         if self.clf == None:
