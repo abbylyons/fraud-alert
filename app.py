@@ -1,3 +1,7 @@
+# app.py
+# Abby Lyons and Timothy Tamm, March 2017
+# The app trains the SVM every so often, and tests new purchases
+
 #!/usr/bin/python
 
 import json

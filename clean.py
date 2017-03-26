@@ -1,3 +1,7 @@
+# clean.py
+# Abby Lyons and Timothy Tamm, March 2017
+# Deletes all customers
+
 from NessiWrapper import Nessi
 import json
 import random
@@ -16,4 +20,3 @@ for acc in resp:
 purcs = []
 for acc in accounts:
     nessi.deleteAccount(acc)
-

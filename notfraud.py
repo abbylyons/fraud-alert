@@ -1,4 +1,6 @@
 # notfraud.py
+# Abby Lyons and Timothy Tamm, March 2017
+# Creates and sends a legitimate purchase
 
 from NessiWrapper import Nessi
 import json

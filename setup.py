@@ -1,3 +1,7 @@
+# setup.py
+# Abby Lyons and Timothy Tamm, March 2017
+# Sets up a customer's purchases to model those of a typical person living in Boston
+
 from NessiWrapper import Nessi
 import json
 import random
@@ -23,7 +27,7 @@ for acc in resp:
 
 def setup():
     # put api calls here
-    # monthly bill (same day of month, amount varies)
+    # monthly bill (same day of month)
     biller = {"name": "biller", "category": ["bill"], "address": { "street_number": "1", "street_name": "Mass Ave", "city": "Cambridge", "state": "MA", "zip": "02138"}, "geocode": {"lat": 42.3636629, "lng": -71.0558767}}
     response = nessi.createMerchant(biller)
     if response["code"] != 201:
@@ -46,7 +50,7 @@ def setup():
             print "Bill " + str(month) + " failed"
             return
 
-    # weekly grocery shopping (same day of week)
+    # weekly grocery shopping (same day of week, amount varies)
     grocer = {
         "name": "grocer",
         "category": [
@@ -125,7 +129,7 @@ def setup():
                 print "Grocery " + str(day) + " failed"
                 return
 
-    # clothing (four times a year, weekend)
+    # clothing (four times a year, amount varies)
     store1 = {
         "name": "store",
         "category": [
@@ -179,7 +183,7 @@ def setup():
         print "Clothing 4 failed"
         return
 
-    # luxury goods (two times a year, weekend, larger than clothing amount)
+    # luxury goods (two times a year, larger variable amount)
     store2 = {
         "name": "luxury",
         "category": [

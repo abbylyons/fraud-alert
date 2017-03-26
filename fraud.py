@@ -1,4 +1,6 @@
 # fraud.py
+# Abby Lyons and Timothy Tamm, March 2017
+# Creates and sends a fraudulent purchase
 
 from NessiWrapper import Nessi
 import json
