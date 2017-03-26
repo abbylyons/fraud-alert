@@ -2,6 +2,7 @@
 
 from NessiWrapper import Nessi
 import json
+import random
 
 # setup Nessi
 with open('secret.json') as json_data:
@@ -16,7 +17,7 @@ for acc in resp:
 
 # make good charge
 clothing = {
-    "merchant_id": "asdf"
+    "merchant_id": "57cf75cea73e494d8675ec49",
     "medium": "balance",
     "purchase_date": "2016-05-10",
     "amount": round(random.uniform(20.0, 100.0), 2),

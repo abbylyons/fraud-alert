@@ -82,7 +82,7 @@ class FraudAlert(object):
         for acc in self.accounts:
             resp = self.nessi.getPurchasesByAccount(acc)
             for purchase in resp:
-                if (not purchase['_id'] in self.oldPurchases) or (not purchase['_id'] in self.badPurchases):
+                if (not purchase['_id'] in self.oldPurchases) and (not purchase['_id'] in self.badPurchases):
                     newPurchases.append(purchase)
         return newPurchases
 
