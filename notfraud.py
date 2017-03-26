@@ -17,7 +17,7 @@ for acc in resp:
 
 # make good charge
 clothing = {
-    "merchant_id": "57cf75cea73e494d8675ec49",
+    "merchant_id": "58d724ea1756fc834d906d9b",
     "medium": "balance",
     "purchase_date": "2016-05-10",
     "amount": round(random.uniform(20.0, 100.0), 2),

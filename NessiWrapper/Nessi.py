@@ -39,7 +39,9 @@ class Nessi(object):
             print('nessi get request failed with code {}\n\turl: {}'.format(resp.status_code, url))
             print(resp.content)
             return None
-        return json.loads(resp.content)
+        if (resp.content):
+            return json.loads(resp.content)
+        return
 
     def __sendDeleteRequest__(self, url):
         resp = requests.delete(url)
@@ -47,7 +49,9 @@ class Nessi(object):
             print('nessi delete request failed with code {}\n\turl: {}'.format(resp.status_code, url))
             print(resp.content)
             return None
-        return json.loads(resp.content)
+        if (resp.content):
+            return json.loads(resp.content)
+        return
 
     def __sendPostRequest__(self, url, payload):
         resp = requests.post(url, data=json.dumps(payload), headers={'content-type':'application/json'})
@@ -55,7 +59,9 @@ class Nessi(object):
             print('nessi post request failed with code {}\n\turl: {}'.format(resp.status_code, url))
             print(resp.content)
             return None
-        return json.loads(resp.content)
+        if (resp.content):
+            return json.loads(resp.content)
+        return
 
     def __sendPutRequest__(self, url, payload):
         resp = requests.put(url, data=json.dumps(payload), headers={'content-type':'application/json'})
@@ -63,7 +69,10 @@ class Nessi(object):
             print('nessi put request failed with code {}\n\turl: {}'.format(resp.status_code, url))
             print(resp.content)
             return None
-        return json.loads(resp.content)
+        if (resp.content):
+            return json.loads(resp.content)
+        return
+
 
 
     ############

@@ -15,9 +15,5 @@ for acc in resp:
 
 purcs = []
 for acc in accounts:
-    purcs += nessi.getPurchasesByAccount(acc)
-
-for purc in purcs:
-    nessi.deletePurchase(purc['_id'])
-
+    nessi.deleteAccount(acc)
 

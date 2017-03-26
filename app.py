@@ -106,9 +106,9 @@ class FraudAlert(object):
                 int(merchant['geocode']['lat']),
                 int(merchant['geocode']['lng']),
                 #idToint(purc['merchant_id']),
-                date.weekday(),
-                int(dateParts[1]) - 1,
-                int(dateParts[0]),
+                #date.weekday(),
+                #int(dateParts[1]) - 1,
+                #int(dateParts[0]),
                 float(purc['amount'])
             ]
             if self.debug:
@@ -165,6 +165,9 @@ class FraudAlert(object):
         # write out checked purchases
         with open('purchases.pkl', 'wb') as handle:
             pickle.dump(self.oldPurchases, handle)
+        with open('badpurchases.pkl', 'wb') as handle:
+            pickle.dump(self.badPurchases, handle)
+
 
     def send_message(self, body):
         self.twilio.messages.create(body=body, to=self.number, from_=self.twilioNumber)
